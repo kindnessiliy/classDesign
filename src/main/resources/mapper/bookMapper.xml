@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.classdesign.mapper.BookMapper">
+    <update id="updateLocation" parameterType="int">
+        update books set frameId=#{frameId},rowId=#{rowId} where id=#{bookId}
+    </update>
+    <select id="findByName" parameterType="string" resultType="com.classdesign.domain.Book">
+        select * from books
+        where bookName like concat('%',#{bookName},'%')
+    </select>
+    <select id="findByNamePage" resultType="com.classdesign.domain.Book">
+        select * from books where bookName like concat('%',#{bookName},'%')
+    </select>
+    <select id="show" parameterType="int" resultType="com.classdesign.domain.Book">
+        select * from books where id = #{bid}
+    </select>
+    <insert id="insertNewBook" parameterType="book">
+        insert into books(bookName,description,areaId,frameId,rowId,specificId)
+        values(#{bookName},#{descriptions},#{areaId},#{frameId},#{rowId},#{specificId})
+    </insert>
+    <delete id="deleteBook" parameterType="int">
+        delete from books where id=#{bid}
+    </delete>
+</mapper>

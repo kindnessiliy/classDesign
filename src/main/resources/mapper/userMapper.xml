@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.classdesign.mapper.UserMapper">
+
+    <select id="loadUserByUsername" resultType="com.classdesign.domain.User">
+        select * from user where username=#{username}
+    </select>
+
+    <select id="show" parameterType="int" resultType="com.classdesign.domain.User">
+        select * from user where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.classdesign.domain.User">
+        update user set
+        <if test="username!=null">
+            username=#{username}
+        </if>
+        <if test="gender!=null">
+            ,gender = #{gender}
+        </if>
+        where id=#{id}
+    </update>
+    <update id="updatePassword">
+        update user set password=#{password} where id=#{uid}
+    </update>
+
+    <select id="hasBorrowed" parameterType="int" resultType="com.classdesign.domain.Book">
+        select * from books where id = (
+        select bookId from userbook where userId = #{id}
+        )
+    </select>
+    <select id="findRole" resultType="com.classdesign.domain.Role">
+        select * from role
+        where id in(
+            select rid from user_role
+            where uid=#{id}
+        )
+    </select>
+
+
+    <insert id="register" parameterType="com.classdesign.domain.User">
+        insert into user(username,password,gender)
+        values(#{username},#{password},#{gender})
+    </insert>
+
+
+
+</mapper>

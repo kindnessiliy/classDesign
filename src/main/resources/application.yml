@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///library?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true&userUnicode=true
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      keep-alive: true
+      keep-alive-between-time-millis: 30000
+      max-active: 8000
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 5
+        min-idle: 0
+    timeout: 9000
+
+server:
+  port: 8080
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.classdesign.domain
+
